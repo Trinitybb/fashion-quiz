@@ -1,0 +1,61 @@
+import random
+
+def ask_questions():
+    print("Welcome to the Luxury Fashion Personality Quiz!")
+    print("Answer the following questions to discover which luxury brand matches your personality and your outfit of the day.\n")
+
+    # Questions and options
+    questions = [
+        {"question": "What's your favorite color?", "options": ["1. Black", "2. Pink", "3. Beige", "4. Red"]},
+        {"question": "What's your go-to fabric?", "options": ["1. Leather", "2. Silk", "3. Cotton", "4. Velvet"]},
+        {"question": "What's your ideal accessory?", "options": ["1. Sunglasses", "2. Handbag", "3. Watch", "4. Shoes"]},
+        {"question": "What's your preferred aesthetic?", "options": ["1. Edgy", "2. Feminine", "3. Minimalist", "4. Bold"]},
+    ]
+
+    # User responses
+    answers = []
+
+    for q in questions:
+        print(q["question"])
+        for option in q["options"]:
+            print(option)
+        while True:
+            try:
+                choice = int(input("Choose an option (1-4): "))
+                if 1 <= choice <= 4:
+                    answers.append(choice)
+                    break
+                else:
+                    print("Please choose a valid option (1-4).")
+            except ValueError:
+                print("Please enter a number between 1 and 4.")
+        print()
+
+    return answers
+
+def determine_brand_and_outfit(answers):
+    # Mapping answers to brands and outfits
+    brands = ["CHANEL", "MIU MIU", "SAINT LAURENT", "GUCCI", "LOEWE"]
+    outfits = [
+        "A chic black tweed suit with gold buttons, paired with a quilted leather bag and classic pumps.",
+        "A playful pink mini dress with crystal embellishments, styled with ballet flats and a pearl headband.",
+        "A sophisticated beige trench coat with a silk scarf, worn with pointed-toe heels and a minimalist clutch.",
+        "A bold red velvet blazer with flared trousers, accessorized with oversized sunglasses and platform shoes.",
+        "An artistic asymmetrical dress with neutral tones, paired with statement sneakers and a unique leather bag."
+    ]
+
+    # Simple scoring system
+    brand_index = max(set(answers), key=answers.count) - 1
+    outfit = outfits[brand_index]
+
+    return brands[brand_index], outfit
+
+def main():
+    answers = ask_questions()
+    brand, outfit = determine_brand_and_outfit(answers)
+
+    print(f"\nYour luxury brand match is: {brand}!")
+    print(f"Your outfit of the day is: {outfit}")
+
+if __name__ == "__main__":
+    main()
